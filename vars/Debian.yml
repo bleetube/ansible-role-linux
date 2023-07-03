@@ -1,0 +1,19 @@
+---
+sysadmin_packages:
+  - curl
+  - dnsutils
+  - git
+  - gpg
+  - htop
+  - iptables
+  - iputils-ping
+  - jq
+  - net-tools
+  - netcat
+  - psmisc
+  - python-is-python3
+  - rsync
+  - tcpdump
+  - tmux
+  - tree
+  - vim

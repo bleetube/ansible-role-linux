@@ -1,0 +1,59 @@
+---
+- name: Set timezone to UTC
+  community.general.timezone:
+    name: UTC
+
+- name: Let root authenticate via ssh pubkey, Ubuntu.
+  ansible.builtin.replace:
+    path: /root/.ssh/authorized_keys
+    regexp: '^no.*(ssh.*)$'
+    replace: '\1'
+
+- name: Check for Unattended-Upgrade
+  ansible.builtin.stat:
+    path: /etc/apt/apt.conf.d/20auto-upgrades
+  register: unattended_upgrade
+
+- name: Ensure apt automatic upgrades are not enabled.
+  lineinfile:
+    path: /etc/apt/apt.conf.d/20auto-upgrades
+    regexp: 'APT::Periodic::Unattended-Upgrade "1";'
+    line: 'APT::Periodic::Unattended-Upgrade "0";'
+  when: unattended_upgrade.stat.exists
+
+- name: Ensure unnecessary packages from Ubuntu are removed.
+  ansible.builtin.apt:
+    state: absent
+    name:
+      - snapd
+      - lxd-agent-loader
+      - modemmanager        # Curious: mmcli --list-modems
+  register: apt_status
+  until: apt_status is success
+  delay: 6
+  retries: 10
+
+- name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+#- name: Update Linux Kernel
+#  ansible.builtin.apt:
+#    name: linux-image-amd64
+#    state: latest
+#  register: kernel_version
+#
+#- name: Reboot a slow machine that might have lots of updates to apply
+#  ansible.builtin.reboot:
+#    reboot_timeout: 3600
+#  when: kernel_version is changed
+
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: '*'
+    state: latest
+
+- name: Remove dependencies that are no longer required
+  ansible.builtin.apt:
+    autoremove: yes
