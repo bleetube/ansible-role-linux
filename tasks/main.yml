@@ -32,3 +32,4 @@
     regex: 'HostKey /etc/ssh/ssh_host_ed25519_key'
     line: 'HostKey /etc/ssh/ssh_host_ed25519_key'
     state: present
+  notify: restart sshd
