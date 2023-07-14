@@ -1,6 +1,7 @@
 ---
 sysadmin_packages:
   - curl
+  - file
   - dnsutils
   - git
   - gpg

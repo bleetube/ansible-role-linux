@@ -20,3 +20,15 @@
   ansible.builtin.package:
     state: present
     name: "{{ sysadmin_packages }}"
+
+- name: Generate ed25519 SSH host key
+  ansible.builtin.command:
+    cmd: ssh-keygen -A
+    creates: /etc/ssh/ssh_host_ed25519_key
+
+- name: Prefer ed25519 HostKeys in sshd_config
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regex: 'HostKey /etc/ssh/ssh_host_ed25519_key'
+    line: 'HostKey /etc/ssh/ssh_host_ed25519_key'
+    state: present
