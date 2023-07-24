@@ -6,8 +6,6 @@ sysadmin_packages:
   - git
   - gpg
   - htop
-# - iptables
-  - iputils-ping
   - jq
   - net-tools
   - netcat

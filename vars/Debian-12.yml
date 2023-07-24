@@ -6,11 +6,11 @@ sysadmin_packages:
   - git
   - gpg
   - htop
-# - iptables
+  - nftables
   - iputils-ping
   - jq
   - net-tools
-  - netcat
+  - netcat-traditional
   - psmisc
   - python-is-python3
   - rsync
