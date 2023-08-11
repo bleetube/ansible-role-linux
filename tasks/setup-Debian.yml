@@ -49,6 +49,14 @@
 #    reboot_timeout: 3600
 #  when: kernel_version is changed
 
+- name: Update sources.list to select a fast mirror on Ubuntu
+  ansible.builtin.replace:
+    path: /etc/apt/sources.list
+    regexp: 'http://.*archive.ubuntu.com/ubuntu'
+    replace: 'mirror://mirrors.ubuntu.com/mirrors.txt'
+  when: ansible_distribution == 'Ubuntu'
+
+
 - name: Update all packages to their latest version
   ansible.builtin.apt:
     name: '*'

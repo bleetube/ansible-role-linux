@@ -12,6 +12,12 @@
     state: present
     name: "{{ sysadmin_packages }}"
 
+- name: Ensure custom sysadmin utility packages are installed.
+  ansible.builtin.package:
+    state: present
+    name: "{{ sysadmin_packages_custom }}"
+  when: sysadmin_packages_custom | length > 0
+
 - name: Generate ed25519 SSH host key
   ansible.builtin.command:
     cmd: ssh-keygen -A

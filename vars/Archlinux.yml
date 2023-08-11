@@ -1,0 +1,34 @@
+---
+sysadmin_packages:
+  - bash-completion
+  - curl
+  - dnsutils
+  - doas
+  - dosfstools
+  - ffmpeg
+  - file
+  - git
+  - gnupg
+  - htop
+  - jq
+  - mediainfo
+  - mtr
+  - net-tools
+  - netcat
+  - nginx
+  - p7zip
+  - parted
+  - pass
+  - psmisc
+  - rsync
+  - smartmontools
+  - tcpdump
+  - tmux
+  - tree
+  - unzip
+  - vi
+  - vim
+  - vim
+  - wget
+  - which
+  - whois

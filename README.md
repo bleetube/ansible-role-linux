@@ -8,8 +8,8 @@ None.
 
 ## Role Variables
 
-There is one variable, which is the list of packages to install.
+Extra packages can be installed by using the custom list:
 
 ```yaml
-sysadmin_packages: []
+sysadmin_packages_custom: []
 ```
