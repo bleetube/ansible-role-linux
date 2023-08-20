@@ -3,7 +3,7 @@
   community.general.timezone:
     name: UTC
 
-- name: Let root authenticate via ssh pubkey, Ubuntu.
+- name: Let root authenticate via ssh pubkey, Ubuntu
   ansible.builtin.replace:
     path: /root/.ssh/authorized_keys
     regexp: '^no.*(ssh.*)$'
@@ -14,7 +14,7 @@
     path: /etc/apt/apt.conf.d/20auto-upgrades
   register: unattended_upgrade
 
-- name: Ensure apt automatic upgrades are not enabled.
+- name: Ensure apt automatic upgrades are not enabled
   lineinfile:
     path: /etc/apt/apt.conf.d/20auto-upgrades
     regexp: 'APT::Periodic::Unattended-Upgrade "1";'
@@ -33,21 +33,11 @@
   delay: 6
   retries: 10
 
-- name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+- name: Upgrade all packages
   ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: 3600
-
-#- name: Update Linux Kernel
-#  ansible.builtin.apt:
-#    name: linux-image-amd64
-#    state: latest
-#  register: kernel_version
-#
-#- name: Reboot a slow machine that might have lots of updates to apply
-#  ansible.builtin.reboot:
-#    reboot_timeout: 3600
-#  when: kernel_version is changed
+    upgrade: yes
 
 - name: Update sources.list to select a fast mirror on Ubuntu
   ansible.builtin.replace:
@@ -55,12 +45,6 @@
     regexp: 'http://.*archive.ubuntu.com/ubuntu'
     replace: 'mirror://mirrors.ubuntu.com/mirrors.txt'
   when: ansible_distribution == 'Ubuntu'
-
-
-- name: Update all packages to their latest version
-  ansible.builtin.apt:
-    name: '*'
-    state: latest
 
 - name: Remove dependencies that are no longer required
   ansible.builtin.apt:

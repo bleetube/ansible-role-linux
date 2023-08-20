@@ -1,0 +1,10 @@
+---
+- name: Set timezone to UTC
+  community.general.timezone:
+    name: UTC
+
+- name: Update package database
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+  tags: upgrade
