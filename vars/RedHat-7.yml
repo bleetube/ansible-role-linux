@@ -1,0 +1,11 @@
+---
+sysadmin_packages:
+  - psmisc
+  - git
+  - net-tools
+  - psmisc
+  - rsync
+  - tcpdump
+  - tmux
+  - tree
+  - vim
