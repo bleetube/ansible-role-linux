@@ -2,7 +2,7 @@
 sysadmin_packages:
   - curl
   - file
-  - dnsutils
+  - bind9-dnsutils
   - git
   - gpg
   - htop
